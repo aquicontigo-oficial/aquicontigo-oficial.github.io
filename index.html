@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Aquí Contigo | Cuidado Domiciliario de Alta Gama</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/x-icon" href="aqui-contigo.png">
+
+  <!-- Preconexiones para fuentes y recursos externos (mejora velocidad) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Carga diferida de Font Awesome y AOS (mejora rendimiento) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
+
+  <style>
+    /* ===== ESTILOS COMPLETOS ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    :root {
+      --primary: #236F57;
+      --primary-light: #3ca281;
+      --primary-dark: #164737;
+      --primary-soft: rgba(35, 111, 87, 0.06);
+      --primary-glow: rgba(35, 111, 87, 0.15);
+
+      --purple-lila: #7B2CBF;
+      --purple-lila-light: #9D4EDD;
+      --turquesa: #00B4D8;
+      --turquesa-light: #90E0EF;
+      --secondary: #00B4D8;
+
+      --bg-white: #FFFFFF;
+      --bg-soft: #F4F7F5;
+      --text-dark: #0B1310;
+      --text-muted: #415349;
+      --text-light: #768E80;
+      --border-light: rgba(35, 111, 87, 0.12);
+      --glass-bg: rgba(255, 255, 255, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      --card-shadow: 0 10px 30px -5px rgba(11, 19, 16, 0.04), 0 4px 12px -3px rgba(35, 111, 87, 0.02);
+      --card-shadow-hover: 0 25px 50px -12px rgba(123, 44, 191, 0.15), 0 8px 20px -6px rgba(0, 180, 216, 0.05);
+      --header-bg: rgba(244, 247, 245, 0.75);
+      --footer-bg: linear-gradient(135deg, #0B1310 0%, #050807 100%);
+      --footer-text-title: #FFFFFF;
+      --footer-text-body: #A4B6AD;
+      --radius-xl: 30px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --transition-fluid: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-snappy: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body.dark {
+      --primary: #41A384;
+      --primary-light: #59d5af;
+      --primary-dark: #236F57;
+      --primary-soft: rgba(65, 163, 132, 0.12);
+      --primary-glow: rgba(65, 163, 132, 0.25);
+
+      --purple-lila: #9D4EDD;
+      --purple-lila-light: #C77DFF;
+      --turquesa: #00B4D8;
+      --turquesa-light: #ADE8F4;
+      --secondary: #ADE8F4;
+
+      --bg-white: #0E1613;
+      --bg-soft: #050807;
+      --text-dark: #F5FAF7;
+      --text-muted: #94A89E;
+      --text-light: #5C7367;
+      --border-light: rgba(65, 163, 132, 0.16);
+      --glass-bg: rgba(14, 22, 19, 0.55);
+      --glass-border: rgba(255, 255, 255, 0.04);
+      --card-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+      --card-shadow-hover: 0 30px 60px -12px rgba(65, 163, 132, 0.25);
+      --header-bg: rgba(5, 8, 7, 0.75);
+      --footer-bg: linear-gradient(135deg, #060A08 0%, #010202 100%);
+      --footer-text-title: #F5FAF7;
+      --footer-text-body: #7D9487;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-soft);
+      color: var(--text-dark);
+      scroll-behavior: smooth;
+      transition: background 0.4s var(--transition-snappy), color 0.4s var(--transition-snappy);
+      overflow-x: hidden;
+    }
+
+    /* Pantalla de carga Premium */
+    #loading-screen {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--bg-soft);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s;
+    }
+    .loading-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    .loading-logo-container {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-white);
+      border-radius: 50%;
+      padding: 20px;
+      box-shadow: var(--card-shadow-hover);
+    }
+    .loading-logo-container::before {
+      content: '';
+      position: absolute;
+      top: -6px; left: -6px; right: -6px; bottom: -6px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: var(--primary);
+      border-bottom-color: var(--purple-lila);
+      animation: spin 2s linear infinite;
+    }
+    .loading-logo {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+    .loading-bar-bg {
+      width: 240px;
+      height: 6px;
+      background: var(--border-light);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .loading-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--turquesa));
+      border-radius: 10px;
+      transition: width 0.1s linear;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    h1, h2, h3, .section-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .section-title-container {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .section-title {
+      font-size: 3rem;
+      color: var(--text-dark);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 20px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 50px; height: 3px;
+      background: linear-gradient(90deg, var(--purple-lila), var(--turquesa));
+      border-radius: 2px;
+    }
+
+    .section-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-top: 18px;
+      font-weight: 400;
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-soft); }
+    ::-webkit-scrollbar-thumb { background: var(--turquesa); border-radius: 20px; }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .progress-container {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 4px;
+      background: transparent;
+      z-index: 2001;
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--purple-lila));
+      width: 0%;
+    }
+
+    /* Navegación */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      background: var(--header-bg);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 20px 0;
+      transition: var(--transition-fluid);
+    }
+    .navbar.scrolled {
+      padding: 14px 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-img {
+      height: 46px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      text-decoration: none;
+      position: relative;
+      padding: 6px 0;
+      transition: var(--transition-snappy);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; width: 0; height: 2px;
+      background: var(--turquesa);
+      transition: var(--transition-snappy);
+    }
+
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: var(--purple-lila); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .dark-toggle, .menu-toggle {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition-fluid);
+    }
+
+    .dark-toggle:hover, .menu-toggle:hover {
+      background: linear-gradient(135deg, var(--purple-lila), var(--turquesa));
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .menu-toggle { display: none; }
+
+    .btn-nav-install {
+      background: linear-gradient(135deg, var(--purple-lila), var(--turquesa));
+      color: white !important;
+      padding: 8px 18px !important;
+      border-radius: 30px;
+      font-weight: 600 !important;
+      box-shadow: var(--card-shadow);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: var(--transition-fluid) !important;
+    }
+    .btn-nav-install:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow-hover);
+      color: white !important;
+    }
+    .btn-nav-install::after { display: none !important; }
+
+    .btn-primary, .btn-outline {
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: var(--transition-fluid);
+      text-decoration: none;
+      box-shadow: var(--card-shadow);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--purple-lila));
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--purple-lila-light), var(--turquesa));
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      background: var(--glass-bg);
+      border: 1px solid var(--turquesa);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: linear-gradient(135deg, var(--turquesa), var(--primary));
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* ===== REPRODUCTOR DE MÚSICA TERAPÉUTICA ===== */
+    .hero-audio-wrapper {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 16px 28px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(8px);
+      transition: var(--transition-fluid);
+    }
+    .hero-audio-wrapper:hover {
+      box-shadow: var(--card-shadow-hover);
+    }
+    .hero-audio-wrapper .audio-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+    .hero-audio-wrapper .audio-info i {
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, var(--purple-lila), var(--turquesa));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-audio-wrapper audio {
+      flex: 1;
+      min-width: 200px;
+      max-width: 400px;
+      height: 40px;
+      border-radius: 30px;
+      background: var(--bg-soft);
+      outline: none;
+    }
+    .hero-audio-wrapper audio::-webkit-media-controls-panel {
+      background: var(--bg-soft);
+    }
+    .hero-audio-wrapper .audio-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .hero-audio-wrapper .audio-btn {
+      background: var(--primary-soft);
+      border: 1px solid var(--border-light);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--primary);
+      transition: var(--transition-snappy);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .hero-audio-wrapper .audio-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.05);
+    }
+    .hero-audio-wrapper .volume-slider {
+      width: 80px;
+      height: 4px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--border-light);
+      border-radius: 4px;
+      outline: none;
+      transition: background 0.2s;
+    }
+    .hero-audio-wrapper .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      border: 2px solid var(--bg-white);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .hero-audio-wrapper .volume-slider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      border: 2px solid var(--bg-white);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 40px 0 80px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--purple-lila);
+      margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-soft);
+      padding: 8px 18px;
+      border-radius: 50px;
+      border: 1px solid var(--border-light);
+    }
+
+    .hero-content h1 {
+      font-size: 4.2rem;
+      line-height: 1.15;
+      margin-bottom: 28px;
+    }
+
+    .hero-content h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--turquesa);
+    }
+
+    .hero-content p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 20px;
+    }
+
+    .hero-carousel {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--card-shadow-hover);
+      aspect-ratio: 1/1;
+      position: relative;
+      border: 4px solid var(--bg-white);
+    }
+
+    .carousel-images {
+      width: 100%; height: 100%;
+      position: relative;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(1.06);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .carousel-btn-img {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--purple-lila);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10;
+      transition: var(--transition-snappy);
+    }
+    .carousel-btn-img:hover { background: var(--turquesa); color: white; }
+    .btn-left-img { left: 20px; }
+    .btn-right-img { right: 20px; }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 24px; left: 0; right: 0;
+      display: flex; justify-content: center; gap: 10px;
+      z-index: 10;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      background: rgba(255,255,255,0.45);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition-snappy);
+    }
+    .dot.active { background: var(--bg-white); width: 24px; border-radius: 10px; }
+
+    /* Valores */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 24px;
+      margin: 80px 0;
+    }
+
+    .value-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 32px 16px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition-fluid);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--purple-lila));
+      opacity: 0;
+      transition: var(--transition-snappy);
+    }
+
+    .value-card:hover { transform: translateY(-6px); box-shadow: var(--card-shadow-hover); }
+    .value-card:hover::before { opacity: 1; }
+
+    .value-card i {
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, var(--primary), var(--turquesa));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 18px;
+      display: inline-block;
+    }
+
+    .value-card h3 { font-size: 1rem; font-weight: 600; }
+
+    /* Bloque Corporativo */
+    .about-wrap {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 80px;
+      box-shadow: var(--card-shadow);
+      margin: 100px 0;
+      position: relative;
+    }
+    .about-wrap h2 { font-size: 2.5rem; margin-bottom: 24px; }
+    .about-wrap p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; }
+
+    /* Portafolio de Servicios */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .service-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 48px 32px;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition-fluid);
+    }
+    .service-card:hover { transform: translateY(-8px); box-shadow: var(--card-shadow-hover); border-color: var(--turquesa); }
+
+    .service-card i {
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--purple-lila));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 28px;
+      display: inline-block;
+    }
+
+    .service-card h3 { font-size: 1.4rem; margin-bottom: 16px; }
+    .service-card p { color: var(--text-muted); font-size: 0.98rem; line-height: 1.65; }
+
+    /* Sección Carrito Informativa */
+    .carrito-informativo {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 80px 60px;
+      box-shadow: var(--card-shadow);
+      margin: 100px 0;
+      text-align: center;
+    }
+    .carrito-informativo i {
+      font-size: 4rem;
+      background: linear-gradient(135deg, var(--primary), var(--purple-lila));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 30px;
+      display: inline-block;
+    }
+    .carrito-informativo h2 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+    .carrito-informativo p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    /* Sección de Instalación Premium PWA */
+    .seccion-pwa-instalacion {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 80px 60px;
+      box-shadow: var(--card-shadow);
+      margin: 100px 0;
+      text-align: center;
+      display: block;
+    }
+    .seccion-pwa-instalacion i.main-icon {
+      font-size: 4rem;
+      background: linear-gradient(135deg, var(--purple-lila), var(--turquesa));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 30px;
+      display: inline-block;
+    }
+    .seccion-pwa-instalacion h2 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+    .seccion-pwa-instalacion p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    /* Marquees Infinitos */
+    .marquee-section { padding: 80px 0; overflow: hidden; }
+    .marquee-viewport {
+      display: flex; overflow: hidden; user-select: none; position: relative;
+      width: 100vw; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; padding: 30px 0;
+    }
+    .marquee-viewport::before, .marquee-viewport::after {
+      content: ""; position: absolute; top: 0; width: 250px; height: 100%; z-index: 2; pointer-events: none;
+    }
+    .marquee-viewport::before { left: 0; background: linear-gradient(to right, var(--bg-soft), transparent); }
+    .marquee-viewport::after { right: 0; background: linear-gradient(to left, var(--bg-soft), transparent); }
+
+    .marquee-rail-photos, .marquee-rail-reviews {
+      display: flex; gap: 30px; width: max-content;
+    }
+    .marquee-rail-photos { animation: runMarquee 38s linear infinite; }
+    .marquee-rail-reviews { animation: runMarquee 48s linear infinite; }
+    .marquee-viewport:hover .marquee-rail-photos,
+    .marquee-viewport:hover .marquee-rail-reviews { animation-play-state: paused; }
+
+    @keyframes runMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-50% - 15px)); }
+    }
+
+    .album-item {
+      width: 360px; position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4/3; box-shadow: var(--card-shadow); cursor: pointer; border: 2px solid var(--bg-white);
+    }
+    .album-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition-fluid); }
+    .album-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(to top, rgba(123, 44, 191, 0.85) 0%, transparent 65%);
+      display: flex; align-items: flex-end; padding: 24px; opacity: 0; transition: var(--transition-snappy);
+    }
+    .album-overlay span { color: white; font-weight: 600; font-size: 1.1rem; transform: translateY(15px); transition: var(--transition-fluid); }
+    .album-item:hover img { transform: scale(1.08); }
+    .album-item:hover .album-overlay { opacity: 1; }
+    .album-item:hover .album-overlay span { transform: translateY(0); }
+
+    .review-luxury-card {
+      width: 420px; background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 40px; box-shadow: var(--card-shadow);
+    }
+    .review-luxury-header { display: flex; gap: 20px; align-items: center; margin-bottom: 24px; }
+    .review-luxury-avatar {
+      width: 54px; height: 54px; background: var(--primary-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--purple-lila); border: 1px solid var(--border-light);
+    }
+    .stars-luxury { color: #F2C94C; font-size: 0.9rem; margin-top: 6px; letter-spacing: 3px; }
+    .review-luxury-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; font-style: italic; }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 7, 0.96); z-index: 3000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; backdrop-filter: blur(10px);
+    }
+    .lightbox.active { opacity: 1; pointer-events: auto; }
+    .lightbox-content { max-width: 85%; max-height: 80vh; position: relative; transform: scale(0.92); transition: transform 0.4s ease; }
+    .lightbox.active .lightbox-content { transform: scale(1); }
+    .lightbox-content img { max-width: 100%; max-height: 80vh; border-radius: var(--radius-md); }
+    .lightbox-close { position: absolute; top: -50px; right: 0; color: white; font-size: 2.5rem; cursor: pointer; }
+
+    /* Terminal de Asistencia (CRUD) */
+    .form-section {
+      background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--radius-xl); padding: 70px; box-shadow: var(--card-shadow); margin: 100px 0;
+    }
+    .form-group { margin-bottom: 28px; }
+    .form-group label { display: block; margin-bottom: 12px; font-weight: 600; font-size: 0.92rem; }
+    input, textarea {
+      width: 100%; padding: 18px 24px; border-radius: var(--radius-md); border: 1px solid var(--border-light); background: var(--bg-soft); color: var(--text-dark); font-family: inherit; font-size: 0.98rem; transition: var(--transition-snappy);
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--purple-lila); background: var(--bg-white); box-shadow: 0 0 0 4px var(--primary-soft); }
+
+    /* WhatsApp Flotante */
+    .whatsapp-float {
+      position: fixed; bottom: 40px; left: 40px; background: #25D366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35); z-index: 1999; text-decoration: none; transition: var(--transition-fluid);
+    }
+    .whatsapp-float:hover { transform: scale(1.1) translateY(-3px); }
+
+    /* Chatbot Premium */
+    .chatbot-launcher {
+      position: fixed; bottom: 40px; right: 40px; background: linear-gradient(135deg, var(--primary), var(--purple-lila)); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: white; box-shadow: 0 10px 32px var(--primary-glow); z-index: 1999; cursor: pointer; transition: var(--transition-fluid); border: none;
+    }
+    .chatbot-launcher:hover { transform: scale(1.08) rotate(8deg); }
+
+    .chatbot-window {
+      position: fixed; bottom: 115px; right: 40px; width: 380px; height: 520px; background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--radius-lg); box-shadow: var(--card-shadow-hover); z-index: 2000; display: flex; flex-direction: column; overflow: hidden; opacity: 0; transform: translateY(30px) scale(0.95); pointer-events: none; transition: var(--transition-fluid);
+    }
+    .chatbot-window.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+
+    .chatbot-header { background: linear-gradient(135deg, var(--primary), var(--purple-lila)); color: white; padding: 20px; display: flex; align-items: center; justify-content: space-between; }
+    .chatbot-info { display: flex; align-items: center; gap: 12px; }
+    .chatbot-avatar { width: 38px; height: 38px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .chatbot-close-btn { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; opacity: 0.7; }
+
+    .chatbot-body { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; background: var(--bg-soft); }
+    .chat-msg { max-width: 82%; padding: 12px 16px; border-radius: var(--radius-md); font-size: 0.92rem; line-height: 1.5; animation: fadeIn 0.3s ease; }
+    .chat-msg.bot { background: var(--bg-white); color: var(--text-dark); border-bottom-left-radius: 4px; border: 1px solid var(--border-light); align-self: flex-start; }
+    .chat-msg.user { background: linear-gradient(135deg, var(--primary), var(--purple-lila)); color: white; border-bottom-right-radius: 4px; align-self: flex-end; }
+
+    .chatbot-options { display: flex; flex-direction: column; gap: 8px; margin-top: 5px; }
+    .chat-opt-btn {
+      background: linear-gradient(135deg, #25D366, #128C7E); border: none; color: white; padding: 12px 16px; border-radius: 30px; cursor: pointer; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25); transition: var(--transition-snappy);
+    }
+    .chat-opt-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35); }
+
+    .chatbot-footer { padding: 14px 20px; background: var(--bg-white); border-top: 1px solid var(--border-light); display: flex; gap: 10px; }
+    .chatbot-footer input { padding: 12px 16px; font-size: 0.9rem; border-radius: 30px; }
+    .chatbot-send-btn {
+      background: var(--primary); border: none; color: white; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition-snappy); flex-shrink: 0;
+    }
+
+    /* Modal Legal */
+    .legal-crud-modal {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 13, 11, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 3500; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: var(--transition-fluid);
+    }
+    .legal-crud-modal.active { opacity: 1; pointer-events: auto; }
+    .legal-crud-container {
+      width: 90%; max-width: 950px; height: 85vh; background: var(--bg-white); border-radius: var(--radius-xl); border: 1px solid var(--border-light); box-shadow: var(--card-shadow-hover); display: flex; overflow: hidden; transform: scale(0.95); transition: var(--transition-fluid);
+    }
+    .legal-crud-sidebar { width: 280px; background: var(--bg-soft); border-right: 1px solid var(--border-light); padding: 40px 24px; display: flex; flex-direction: column; gap: 14px; }
+    .legal-nav-btn {
+      background: transparent; border: none; padding: 14px 20px; text-align: left; font-family: inherit; font-size: 0.92rem; font-weight: 500; color: var(--text-muted); border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; gap: 12px; transition: var(--transition-snappy);
+    }
+    .legal-nav-btn.active, .legal-nav-btn:hover { background: var(--bg-white); color: var(--purple-lila); box-shadow: var(--card-shadow); }
+    .legal-pane-content { flex: 1; display: flex; flex-direction: column; background: var(--bg-white); }
+    .legal-pane-header { padding: 35px 40px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+    .legal-pane-header h2 { font-size: 1.8rem; }
+    .legal-crud-lock-badge { font-size: 0.85rem; font-weight: 600; color: var(--primary); background: var(--primary-soft); padding: 6px 14px; border-radius: 30px; border: 1px solid var(--border-light); display: flex; align-items: center; gap: 6px; }
+    .legal-pane-body { flex: 1; padding: 40px; overflow-y: auto; font-size: 1rem; color: var(--text-muted); line-height: 1.75; }
+    .legal-pane-body h3 { font-size: 1.25rem; color: var(--text-dark); margin: 24px 0 12px; }
+    .legal-control-bar { padding: 20px 40px; border-top: 1px solid var(--border-light); background: var(--bg-soft); display: flex; justify-content: flex-end; }
+
+    /* Toast Notification */
+    .toast-notification {
+      position: fixed; bottom: 120px; left: 50%; transform: translateX(-50%) translateY(30px); background: var(--primary-dark); color: white; padding: 12px 28px; border-radius: 30px; font-weight: 500; box-shadow: var(--card-shadow-hover); z-index: 4000; opacity: 0; pointer-events: none; transition: var(--transition-fluid); font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.12);
+    }
+    .toast-notification.active { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+
+    /* Footer Premium */
+    .premium-footer {
+      background: var(--footer-bg);
+      color: var(--footer-text-body);
+      padding: 90px 0 40px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.92rem;
+      position: relative;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.9fr 1.1fr;
+      gap: 50px;
+      margin-bottom: 70px;
+    }
+    .footer-brand .footer-logo-img {
+      height: 52px;
+      width: auto;
+      margin-bottom: 24px;
+      object-fit: contain;
+    }
+    .footer-brand p {
+      line-height: 1.7;
+      color: var(--footer-text-body);
+      margin-bottom: 30px;
+    }
+    .footer-social-wrapper {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .footer-social-btn, .btn-share-trigger {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      color: var(--footer-text-body);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition-fluid);
+    }
+    .footer-social-btn:hover, .btn-share-trigger:hover {
+      background: linear-gradient(135deg, var(--primary), var(--purple-lila));
+      color: white;
+      transform: translateY(-4px) scale(1.05);
+      border-color: transparent;
+      box-shadow: 0 10px 20px rgba(35, 111, 87, 0.2);
+    }
+    .footer-col h4 {
+      font-family: 'Playfair Display', serif;
+      color: var(--footer-text-title);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .footer-col h4::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -10px;
+      width: 35px; height: 2px;
+      background: var(--turquesa);
+      border-radius: 2px;
+    }
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .footer-links-list a {
+      color: var(--footer-text-body);
+      text-decoration: none;
+      transition: var(--transition-snappy);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-links-list a i {
+      font-size: 0.75rem;
+      opacity: 0;
+      transform: translateX(-50%);
+      transition: var(--transition-snappy);
+      color: var(--purple-lila-light);
+    }
+    .footer-links-list a:hover {
+      color: var(--footer-text-title);
+      padding-left: 6px;
+    }
+    .footer-links-list a:hover i {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .footer-contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .contact-item-box {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .contact-item-box i {
+      font-size: 1.2rem;
+      color: var(--turquesa);
+      margin-top: 3px;
+    }
+    .contact-item-box div h5 {
+      color: var(--footer-text-title);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .contact-item-box div p {
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .footer-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.06);
+      margin-bottom: 35px;
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-bottom-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition-snappy);
+    }
+    .footer-bottom-links a:hover {
+      color: var(--footer-text-title);
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 50px; text-align: center; }
+      .hero-actions { justify-content: center; }
+      .hero-badge { margin: 0 auto 24px; }
+      .values-grid { grid-template-columns: repeat(3, 1fr); }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .legal-crud-container { flex-direction: column; height: 90vh; }
+      .legal-crud-sidebar { width: 100%; flex-direction: row; padding: 20px; overflow-x: auto; }
+      .legal-pane-header, .legal-pane-body { padding: 24px; }
+      .hero-audio-wrapper { flex-direction: column; align-items: stretch; }
+      .hero-audio-wrapper audio { max-width: 100%; }
+      .hero-audio-wrapper .volume-slider { width: 100%; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .menu-toggle { display: flex; }
+      .hero-content h1 { font-size: 2.8rem; }
+      .section-title { font-size: 2.4rem; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-wrap, .form-section, .carrito-informativo, .seccion-pwa-instalacion { padding: 40px 24px; }
+      .review-luxury-card { width: 340px; padding: 28px; }
+      .album-item { width: 290px; }
+      .whatsapp-float { bottom: 24px; left: 24px; width: 52px; height: 52px; font-size: 1.7rem; }
+      .chatbot-launcher { bottom: 24px; right: 24px; width: 52px; height: 52px; font-size: 1.4rem; }
+      .chatbot-window { bottom: 90px; right: 24px; width: calc(100% - 48px); height: 460px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div id="loading-screen">
+    <div class="loading-wrapper">
+      <div class="loading-logo-container">
+        <img src="aqui-contigo.png" alt="Aquí Contigo" class="loading-logo" onerror="this.src='https://via.placeholder.com/120?text=Logo'">
+      </div>
+      <div class="loading-bar-bg"><div class="loading-bar-fill" id="loadingBarFill"></div></div>
+    </div>
+  </div>
+
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo-link">
+        <img src="aqui_contigo.png" alt="Aquí Contigo Premium" class="logo-img" onerror="this.src='https://via.placeholder.com/180x50?text=Aqui+Contigo'">
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#inicio">Inicio</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#galeria">Galería</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#carrito">Carrito</a>
+        <a href="#instalacionApp">Instalar</a>
+        <a href="#asistencia">Contacto Técnico</a>
+        <button id="btnNavInstall" class="btn-nav-install"><i class="fa-solid fa-mobile-screen-button"></i> Instalar App</button>
+      </nav>
+      <div class="nav-actions">
+        <button class="dark-toggle" id="darkToggle" aria-label="Cambiar modo de color">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú móvil">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero container" id="inicio" data-aos="fade-up">
+    <!-- ===== REPRODUCTOR DE MÚSICA TERAPÉUTICA (parte superior del hero) ===== -->
+    <div class="hero-audio-wrapper" data-aos="fade-down" data-aos-delay="100">
+      <div class="audio-info">
+        <i class="fa-solid fa-heart-pulse"></i>
+        <span>Música Terapéutica · Relajación Profunda</span>
+      </div>
+      <audio id="musicaFondo" autoplay loop>
+        <!-- CAMBIA EL src POR TU ENLACE DE MÚSICA RELAJANTE (MP3) -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+      </audio>
+      <div class="audio-controls">
+        <button class="audio-btn" id="audioPlayBtn" aria-label="Reproducir/Pausar">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        <button class="audio-btn" id="audioMuteBtn" aria-label="Alternar silencio">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.7" aria-label="Volumen">
+      </div>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge"><i class="fa-solid fa-crown"></i> Salud Residencial de Élite</div>
+        <h1>Atención Médica y Cuidado de <em>Alta Gama</em></h1>
+        <p>Desplegamos un ecosistema asistencial premium diseñado meticulosamente para pacientes que exigen excelencia médica, privacidad absoluta y un trato profundamente humano en la calidez de su hogar.</p>
+        <div class="hero-actions">
+          <a href="#asistencia" class="btn-primary">Asistencia Inmediata <i class="fa-solid fa-shield-heart"></i></a>
+          <a href="#servicios" class="btn-outline">Ver Portafolio</a>
+        </div>
+      </div>
+      <div class="hero-carousel">
+        <div class="carousel-images" id="carouselImages">
+          <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=800&q=80" alt="Cuidado Premium 1" class="carousel-slide active">
+          <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=800&q=80" alt="Cuidado Premium 2" class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1584515933487-75982136b247?auto=format&fit=crop&w=800&q=80" alt="Cuidado Premium 3" class="carousel-slide">
+        </div>
+        <button class="carousel-btn-img btn-left-img" id="prevSlideImg" aria-label="Anterior diapositiva"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="carousel-btn-img btn-right-img" id="nextSlideImg" aria-label="Siguiente diapositiva"><i class="fa-solid fa-chevron-right"></i></button>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" data-aos="fade-up">
+    <div class="values-grid">
+      <div class="value-card"><i class="fa-solid fa-user-doctor"></i><h3>Médicos Élite</h3></div>
+      <div class="value-card"><i class="fa-solid fa-clock"></i><h3>Cobertura 24/7</h3></div>
+      <div class="value-card"><i class="fa-solid fa-hand-holding-heart"></i><h3>Trato Humano</h3></div>
+      <div class="value-card"><i class="fa-solid fa-user-shield"></i><h3>Privacidad</h3></div>
+      <div class="value-card"><i class="fa-solid fa-laptop-medical"></i><h3>Telemetría</h3></div>
+      <div class="value-card"><i class="fa-solid fa-certificate"></i><h3>Garantía Legal</h3></div>
+    </div>
+  </section>
+
+  <section id="nosotros" class="container" data-aos="fade-up">
+    <div class="about-wrap">
+      <h2>Nuestra Filosofía de Servicio</h2>
+      <p>En Aquí Contigo transformamos la asistencia domiciliaria unconventional en una experiencia médica residencial de categoría Élite. Estudiamos detalladamente el entorno clínico, físico y emocional de cada paciente para desplegar un ecosistema de cuidado altamente personalizado, respaldado por profesionales rigurosamente seleccionados y tecnología de monitoreo continuo en tiempo real.</p>
+    </div>
+  </section>
+
+  <section class="container" id="servicios" data-aos="fade-up">
+    <div class="section-title-container">
+      <h2 class="section-title">Portafolio Exclusivo</h2>
+      <p class="section-sub">Atención médica residencial diseñada con los más altos estándares corporativos.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+        <i class="fa-solid fa-kit-medical"></i>
+        <h3>Enfermería de Élite</h3>
+        <p>Monitoreo de signos vitales, administración avanzada de tratamientos y asistencia clínica continua 24/7 en casa.</p>
+      </div>
+      <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+        <i class="fa-solid fa-wheelchair"></i>
+        <h3>Rehabilitación Física</h3>
+        <p>Planes personalizados de fisioterapia y terapia ocupacional orientados a restaurar la autonomía del paciente.</p>
+      </div>
+      <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+        <i class="fa-solid fa-brain"></i>
+        <h3>Soporte Neurocognitivo</h3>
+        <p>Atención especializada y estimulación neurocognitiva dedicada a pacientes con Alzheimer y demencias.</p>
+      </div>
+      <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
+        <i class="fa-solid fa-house-chimney-medical"></i>
+        <h3>Asistencia Posquirúrgica</h3>
+        <p>Cuidados paliativos e intermedios para garantizar una recuperación rápida, óptima, segura y sin complicaciones.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" id="carrito" data-aos="fade-up">
+    <div class="carrito-informativo">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <h2>Tu Carrito de Compras</h2>
+      <p>Aquí podrás gestionar los paquetes y servicios premium que selecciones para tu cuidado o el de tus seres queridos. Próximamente podrás revisar, modificar y confirmar tus pedidos con total transparencia.</p>
+      <a href="https://teddyfidel.github.io/carrito-de-venta.html" target="_blank" class="btn-outline" style="border-color: var(--primary); color: var(--primary);">
+        <i class="fa-solid fa-bag-shopping"></i> Explorar servicios y productos para añadir
+      </a>
+    </div>
+  </section>
+
+  <section class="container" id="instalacionApp" data-aos="fade-up">
+    <div id="wrapperSeccionInstalar" class="seccion-pwa-instalacion">
+      <i class="fa-solid fa-square-plus main-icon"></i>
+      <h2>Lleva Nuestra Plataforma en tu Bolsillo</h2>
+      <p>Crea un acceso directo en la pantalla de inicio de tu dispositivo móvil o de escritorio. Disfruta de una experiencia premium fluida, acceso instantáneo a soporte técnico y monitoreo clínico sin consumir almacenamiento adicional.</p>
+      <button id="btnSectionInstall" class="btn-primary">
+        <i class="fa-solid fa-download"></i> Crear Acceso Directo en Escritorio
+      </button>
+    </div>
+  </section>
+
+  <section class="marquee-section" id="galeria" data-aos="fade-up">
+    <div class="section-title-container" style="margin-bottom: 2rem;">
+      <h2 class="section-title">Nuestras Instalaciones y Cuidados</h2>
+    </div>
+    <div class="marquee-viewport">
+      <div class="marquee-rail-photos" id="marqueePhotos">
+        <div class="album-item"><img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=500&q=80" alt="Cuidado 1"><div class="album-overlay"><span>Monitoreo Clínico</span></div></div>
+        <div class="album-item"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=500&q=80" alt="Cuidado 2"><div class="album-overlay"><span>Infusión de Medicamentos</span></div></div>
+        <div class="album-item"><img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=500&q=80" alt="Cuidado 3"><div class="album-overlay"><span>Pediatría Especializada</span></div></div>
+        <div class="album-item"><img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=500&q=80" alt="Cuidado 4"><div class="album-overlay"><span>Equipamiento de Telemetría</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="marquee-section" id="testimonios" data-aos="fade-up">
+    <div class="section-title-container" style="margin-bottom: 2rem;">
+      <h2 class="section-title">Reseñas de Alta Fidelidad</h2>
+    </div>
+    <div class="marquee-viewport">
+      <div class="marquee-rail-reviews" id="marqueeReviews">
+        <div class="review-luxury-card">
+          <div class="review-luxury-header">
+            <div class="review-luxury-avatar"><i class="fa-solid fa-quote-left"></i></div>
+            <div>
+              <h4>Dra. Helena de Rosenberg</h4>
+              <div class="stars-luxury"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </div>
+          <p>"La precisión del personal de enfermería y la calidez con la que atendieron a mi padre superaron por completo todas nuestras expectativas corporativas e institucionales."</p>
+        </div>
+        <div class="review-luxury-card">
+          <div class="review-luxury-header">
+            <div class="review-luxury-avatar"><i class="fa-solid fa-quote-left"></i></div>
+            <div>
+              <h4>Ing. Carlos Kaufmann</h4>
+              <div class="stars-luxury"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </div>
+          <p>"Privacidad absoluta y un trato humano insuperable. Un servicio de cuidado que realmente redefine la palabra alta gama."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" id="asistencia" data-aos="fade-up">
+    <div class="form-section">
+      <div class="section-title-container" style="margin-bottom: 3rem; text-align: left;">
+        <h2 class="section-title" style="font-size: 2.5rem;">Terminal de Asistencia Inmediata</h2>
+        <p class="section-sub" style="margin-top: 10px;">Registre, modifique o audite sus requerimientos de soporte técnico o clínico.</p>
+      </div>
+      <form id="crudForm">
+        <input type="hidden" id="queryIndex" value="">
+        <div class="form-group">
+          <label for="patientName">Nombre Completo del Titular / Paciente</label>
+          <input type="text" id="patientName" placeholder="Ej. Juan Carlos Mendoza" required>
+        </div>
+        <div class="form-group">
+          <label for="serviceType">Especialidad Requerida</label>
+          <input type="text" id="serviceType" placeholder="Ej. Enfermería Avanzada / Fisioterapia" required>
+        </div>
+        <div class="form-group">
+          <label for="queryDescription">Especificaciones o Requerimientos Clínicos Especiales</label>
+          <textarea id="queryDescription" rows="4" placeholder="Describa brevemente la condición o requerimiento técnico..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" id="btnSubmitForm">Registrar Solicitud <i class="fa-solid fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightboxClose">&times;</span>
+    <div class="lightbox-content">
+      <img src="" id="lightboxImg" alt="Visualización ampliada">
+    </div>
+  </div>
+
+  <a class="whatsapp-float" style="cursor: pointer;" onclick="window.open('https://wa.me/593995441552?text=*Mesa%20de%20Entrada%20Elite*:%20Deseo%20coordinar%20un%20servicio%20m%C3%A9dico.', '_blank')" aria-label="Contacto directo por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <button class="chatbot-launcher" id="chatbotLauncher" aria-label="Abrir Asistente Virtual">
+    <i class="fa-solid fa-comment-medical"></i>
+  </button>
+
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+      <div class="chatbot-info">
+        <div class="chatbot-avatar"><i class="fa-solid fa-user-nurse"></i></div>
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 600;">Asistente Contigo</h4>
+          <span style="font-size: 0.75rem; opacity: 0.85; display: flex; align-items: center; gap: 4px;"><i class="fa-solid fa-circle" style="color: #25D366; font-size: 0.5rem;"></i> En línea</span>
+        </div>
+      </div>
+      <button class="chatbot-close-btn" id="chatbotCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="chatbot-body" id="chatbotBody"></div>
+    <div class="chatbot-footer">
+      <input type="text" id="chatbotInput" placeholder="Escriba su mensaje aquí..." aria-label="Mensaje para el bot">
+      <button class="chatbot-send-btn" id="chatbotSendBtn" aria-label="Enviar mensaje"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <div class="legal-crud-modal" id="legalModal">
+    <div class="legal-crud-container">
+      <div class="legal-crud-sidebar">
+        <button class="legal-nav-btn active" data-target="politicas-pane"><i class="fa-solid fa-user-shield"></i> Privacidad</button>
+        <button class="legal-nav-btn" data-target="contratos-pane"><i class="fa-solid fa-file-signature"></i> Términos</button>
+      </div>
+      <div class="legal-pane-content">
+        <div class="legal-pane-header">
+          <h2 id="legalPaneTitle">Políticas de Privacidad Clínicas</h2>
+          <div class="legal-crud-lock-badge"><i class="fa-solid fa-lock"></i> SSL Encrypted</div>
+        </div>
+        <div class="legal-pane-body" id="legalPaneBody"></div>
+        <div class="legal-control-bar">
+          <button class="btn-outline" style="padding: 10px 20px; font-size: 0.85rem;" id="btnCloseLegal">Cerrar Documento</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-notification" id="toastNotification">Operación realizada con éxito</div>
+
+  <footer class="premium-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand" data-aos="fade-up" data-aos-delay="100">
+          <img src="aqui_contigo.png" alt="Aquí Contigo Élite" class="footer-logo-img" onerror="this.src='https://via.placeholder.com/180x50?text=Aqui+Contigo'">
+          <p>Ecosistema integral de salud residencial premium. Fusionamos el rigor científico institucional con un trato profundamente humanizado.</p>
+          <div class="footer-social-wrapper">
+            <a href="#" class="footer-social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="footer-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="footer-social-btn" aria-label="TikTok" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" class="footer-social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <button class="btn-share-trigger" id="btnShareTrigger" title="Compartir Sitio Web"><i class="fa-solid fa-share-nodes"></i></button>
+          </div>
+        </div>
+
+        <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
+          <h4>Navegación</h4>
+          <ul class="footer-links-list">
+            <li><a href="#inicio"><i class="fa-solid fa-chevron-right"></i> Inicio</a></li>
+            <li><a href="#nosotros"><i class="fa-solid fa-chevron-right"></i> Nosotros</a></li>
+            <li><a href="#servicios"><i class="fa-solid fa-chevron-right"></i> Servicios</a></li>
+            <li><a href="#galeria"><i class="fa-solid fa-chevron-right"></i> Galería</a></li>
+            <li><a href="#testimonios"><i class="fa-solid fa-chevron-right"></i> Testimonios</a></li>
+            <li><a href="#carrito"><i class="fa-solid fa-chevron-right"></i> Carrito</a></li>
+            <li><a href="#instalacionApp"><i class="fa-solid fa-chevron-right"></i> Instalar</a></li>
+            <li><a href="#asistencia"><i class="fa-solid fa-chevron-right"></i> Contacto Técnico</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
+          <h4>Especialidades</h4>
+          <ul class="footer-links-list">
+            <li><a href="#servicios"><i class="fa-solid fa-chevron-right"></i> Enfermería de Élite</a></li>
+            <li><a href="#servicios"><i class="fa-solid fa-chevron-right"></i> Rehabilitación Física</a></li>
+            <li><a href="#servicios"><i class="fa-solid fa-chevron-right"></i> Soporte Neurocognitivo</a></li>
+            <li><a href="#servicios"><i class="fa-solid fa-chevron-right"></i> Cuidado Posquirúrgico</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col" data-aos="fade-up" data-aos-delay="400">
+          <h4>Soporte Élite</h4>
+          <div class="footer-contact-info">
+            <div class="contact-item-box">
+              <i class="fa-solid fa-phone-volume"></i>
+              <div>
+                <h5>Línea de Teleasistencia</h5>
+                <p>+593 99 544 1552</p>
+              </div>
+            </div>
+            <div class="contact-item-box">
+              <i class="fa-solid fa-envelope-open-text"></i>
+              <div>
+                <h5>Canal Clínico Oficial</h5>
+                <p>correo@correo.com</p>
+              </div>
+            </div>
+            <div class="contact-item-box">
+              <i class="fa-solid fa-location-dot"></i>
+              <div>
+                <h5>Sede Residencial</h5>
+                <p>Quito, Ecuador</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Aquí Contigo. Todos los derechos reservados. Cuidado Residencial de Alta Gama y Desarrollo Corporativo de Alta Fidelidad.</p>
+        <div class="footer-bottom-links">
+          <a href="#" id="linkLegalPrivacidad">Políticas de Privacidad</a>
+          <a href="#" id="linkLegalTerminos">Términos de Contrato</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts diferidos para mejorar velocidad de carga -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+  <script>
+    // ===== INICIALIZACIÓN RÁPIDA =====
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({ duration: 800, once: true });
+      }
+    });
+
+    // ===== PANTALLA DE CARGA =====
+    window.addEventListener('DOMContentLoaded', () => {
+      const fill = document.getElementById('loadingBarFill');
+      let width = 0;
+      const interval = setInterval(() => {
+        if (width >= 100) {
+          clearInterval(interval);
+          const screen = document.getElementById('loading-screen');
+          if (screen) {
+            screen.style.opacity = '0';
+            setTimeout(() => screen.style.visibility = 'hidden', 600);
+          }
+        } else {
+          width += 4;
+          if(fill) fill.style.width = width + '%';
+        }
+      }, 30);
+    });
+
+    // ===== REPRODUCTOR DE MÚSICA TERAPÉUTICA CON VOLUMEN ACTIVO Y CONTROL =====
+    (function() {
+      const audio = document.getElementById('musicaFondo');
+      const playBtn = document.getElementById('audioPlayBtn');
+      const muteBtn = document.getElementById('audioMuteBtn');
+      const volumeSlider = document.getElementById('volumeSlider');
+      if (!audio || !playBtn || !muteBtn || !volumeSlider) return;
+
+      // Configurar volumen inicial (70%)
+      audio.volume = 0.7;
+      volumeSlider.value = 0.7;
+
+      // Intentar reproducir automáticamente (sin mute)
+      audio.play().catch(() => {
+        // Si el navegador bloquea el autoplay, mostramos un mensaje opcional
+        showToast("Presiona play para activar la música terapéutica");
+      });
+
+      // Actualizar íconos
+      function updatePlayIcon() {
+        const icon = playBtn.querySelector('i');
+        if (audio.paused) {
+          icon.className = 'fa-solid fa-play';
+        } else {
+          icon.className = 'fa-solid fa-pause';
+        }
+      }
+
+      function updateMuteIcon() {
+        const icon = muteBtn.querySelector('i');
+        if (audio.muted) {
+          icon.className = 'fa-solid fa-volume-xmark';
+        } else {
+          icon.className = 'fa-solid fa-volume-high';
+        }
+      }
+
+      // Alternar play/pausa
+      playBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (audio.paused) {
+          audio.play().catch(() => {});
+        } else {
+          audio.pause();
+        }
+        updatePlayIcon();
+      });
+
+      // Alternar mute
+      muteBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        audio.muted = !audio.muted;
+        updateMuteIcon();
+        // Si se desmutea y está pausado, reanudar
+        if (!audio.muted && audio.paused) {
+          audio.play().catch(() => {});
+          updatePlayIcon();
+        }
+        showToast(audio.muted ? 'Sonido silenciado' : 'Sonido activado');
+      });
+
+      // Control deslizante de volumen
+      volumeSlider.addEventListener('input', function() {
+        audio.volume = parseFloat(this.value);
+        // Si el volumen es 0, no muteamos, simplemente bajamos el volumen a 0
+        if (audio.volume === 0) {
+          // No forzamos mute, solo volumen 0
+        }
+        // Si el volumen sube y estaba muteado, desmutear
+        if (audio.volume > 0 && audio.muted) {
+          audio.muted = false;
+          updateMuteIcon();
+        }
+      });
+
+      // Sincronizar íconos cuando el audio cambie de estado
+      audio.addEventListener('play', updatePlayIcon);
+      audio.addEventListener('pause', updatePlayIcon);
+      audio.addEventListener('volumechange', updateMuteIcon);
+
+      // Inicializar
+      updatePlayIcon();
+      updateMuteIcon();
+
+      // Si el audio se detiene por error, intentar reanudar
+      audio.addEventListener('error', () => {
+        console.warn('Error en el audio, intentando reanudar...');
+        setTimeout(() => {
+          audio.play().catch(() => {});
+        }, 1000);
+      });
+
+      // Exponer funciones para depuración
+      window.audioPlayer = {
+        togglePlay: function() { playBtn.click(); },
+        toggleMute: function() { muteBtn.click(); },
+        setVolume: function(value) {
+          volumeSlider.value = Math.min(1, Math.max(0, value));
+          audio.volume = parseFloat(volumeSlider.value);
+          if (audio.volume > 0 && audio.muted) {
+            audio.muted = false;
+            updateMuteIcon();
+          }
+        }
+      };
+    })();
+
+    // ===== BARRA DE PROGRESO Y NAVBAR SCROLL =====
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const progressBar = document.getElementById('progressBar');
+      if (progressBar) progressBar.style.width = scrolled + '%';
+
+      const navbar = document.getElementById('navbar');
+      if (navbar) {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      }
+    });
+
+    // ===== MENÚ MÓVIL =====
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', () => {
+        if(navLinks.style.display === 'flex') {
+          navLinks.style.display = 'none';
+        } else {
+          navLinks.style.display = 'flex';
+          navLinks.style.flexDirection = 'column';
+          navLinks.style.position = 'absolute';
+          navLinks.style.top = '100%';
+          navLinks.style.left = '0';
+          navLinks.style.width = '100%';
+          navLinks.style.background = 'var(--bg-white)';
+          navLinks.style.padding = '20px';
+          navLinks.style.borderBottom = '1px solid var(--border-light)';
+          navLinks.style.zIndex = '1999';
+        }
+      });
+
+      document.querySelectorAll('#navLinks a').forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 768) {
+            navLinks.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    // ===== MODO OSCURO =====
+    const darkToggle = document.getElementById('darkToggle');
+    if (darkToggle) {
+      darkToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        const icon = darkToggle.querySelector('i');
+        if(document.body.classList.contains('dark')) {
+          icon.className = 'fa-solid fa-sun';
+          showToast("Modo noche premium activado");
+        } else {
+          icon.className = 'fa-solid fa-moon';
+          showToast("Modo día premium activado");
+        }
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      if (!toast) return;
+      toast.innerText = message;
+      toast.classList.add('active');
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => toast.classList.remove('active'), 3000);
+    }
+
+    // ===== CARRUSEL HERO =====
+    (function() {
+      const slides = document.querySelectorAll('.carousel-slide');
+      const dotsContainer = document.getElementById('carouselDots');
+      if (!slides.length || !dotsContainer) return;
+      let current = 0;
+
+      slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if(index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => changeSlide(index));
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = document.querySelectorAll('.dot');
+
+      function changeSlide(index) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+      }
+
+      const prevBtn = document.getElementById('prevSlideImg');
+      const nextBtn = document.getElementById('nextSlideImg');
+      if (prevBtn) prevBtn.addEventListener('click', () => changeSlide(current - 1));
+      if (nextBtn) nextBtn.addEventListener('click', () => changeSlide(current + 1));
+
+      setInterval(() => changeSlide(current + 1), 6000);
+    })();
+
+    // ===== DUPLICACIÓN DE MARQUEES =====
+    function initMarquee(railId) {
+      const rail = document.getElementById(railId);
+      if(!rail) return;
+      const items = Array.from(rail.children);
+      items.forEach(item => {
+        const clone = item.cloneNode(true);
+        rail.appendChild(clone);
+      });
+    }
+    initMarquee('marqueePhotos');
+    initMarquee('marqueeReviews');
+
+    // ===== LIGHTBOX =====
+    (function() {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      if (!lightbox || !lightboxImg) return;
+
+      document.querySelectorAll('.album-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const img = item.querySelector('img');
+          if (img) {
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+          }
+        });
+      });
+
+      document.getElementById('lightboxClose')?.addEventListener('click', () => lightbox.classList.remove('active'));
+      lightbox.addEventListener('click', (e) => {
+        if(e.target === lightbox) lightbox.classList.remove('active');
+      });
+    })();
+
+    // ===== CRUD SOLICITUDES =====
+    (function() {
+      const form = document.getElementById('crudForm');
+      if (!form) return;
+      let queries = JSON.parse(localStorage.getItem('queries_contigo')) || [
+        { name: "Juan Carlos Mendoza", service: "Enfermería Avanzada", desc: "Monitoreo postquirúrgico continuo por cirugía cardíaca." }
+      ];
+
+      function saveQueries() {
+        localStorage.setItem('queries_contigo', JSON.stringify(queries));
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const index = document.getElementById('queryIndex').value;
+        const nameVal = document.getElementById('patientName').value.trim();
+        const serviceVal = document.getElementById('serviceType').value.trim();
+        const descVal = document.getElementById('queryDescription').value.trim();
+
+        if (index === "") {
+          queries.push({ name: nameVal, service: serviceVal, desc: descVal });
+          showToast("Solicitud de asistencia registrada localmente");
+        } else {
+          queries[parseInt(index)] = { name: nameVal, service: serviceVal, desc: descVal };
+          document.getElementById('queryIndex').value = "";
+          document.getElementById('btnSubmitForm').innerHTML = 'Registrar Solicitud <i class="fa-solid fa-paper-plane"></i>';
+          showToast("Cambios guardados con éxito");
+        }
+        form.reset();
+        saveQueries();
+      });
+    })();
+
+    // ===== CHATBOT =====
+    (function() {
+      const launcher = document.getElementById('chatbotLauncher');
+      const windowChat = document.getElementById('chatbotWindow');
+      const closeBtn = document.getElementById('chatbotCloseBtn');
+      const sendBtn = document.getElementById('chatbotSendBtn');
+      const input = document.getElementById('chatbotInput');
+      const body = document.getElementById('chatbotBody');
+      if (!launcher || !windowChat || !body) return;
+
+      let state = 0;
+      let temp = { name: "", service: "", desc: "" };
+
+      launcher.addEventListener('click', () => {
+        windowChat.classList.toggle('active');
+        if (windowChat.classList.contains('active') && body.children.length === 0) {
+          initChat();
+        }
+      });
+
+      closeBtn?.addEventListener('click', () => windowChat.classList.remove('active'));
+      sendBtn?.addEventListener('click', handleSubmit);
+      input?.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleSubmit(); });
+
+      function appendMsg(text, sender) {
+        const msg = document.createElement('div');
+        msg.className = `chat-msg ${sender}`;
+        msg.innerHTML = text;
+        body.appendChild(msg);
+        body.scrollTop = body.scrollHeight;
+      }
+
+      function initChat() {
+        body.innerHTML = '';
+        state = 0;
+        temp = { name: "", service: "", desc: "" };
+        appendMsg("Bienvenido a los servicios exclusivos de <strong>Aquí Contigo</strong>. Vamos a canalizar su requerimiento clínico.", 'bot');
+        setTimeout(() => {
+          appendMsg("Por favor, ingrese el <strong>Nombre Completo</strong> del paciente o titular:", 'bot');
+          state = 1;
+        }, 600);
+      }
+
+      function handleSubmit() {
+        const text = input.value.trim();
+        if(!text) return;
+        appendMsg(text, 'user');
+        input.value = '';
+
+        setTimeout(() => {
+          switch(state) {
+            case 1:
+              temp.name = text;
+              appendMsg(`Gracias, <strong>${text}</strong>. ¿Qué tipo de <strong>Especialidad o Cuidado</strong> requiere? (Ej. Enfermería, Fisioterapia, Cuidados Paliativos)`, 'bot');
+              state = 2;
+              break;
+            case 2:
+              temp.service = text;
+              appendMsg("Entendido. Por favor, escriba de forma resumida las <strong>Especificaciones Clínicas</strong> o síntomas del paciente:", 'bot');
+              state = 3;
+              break;
+            case 3:
+              temp.desc = text;
+              appendMsg("Procesando credenciales de enlace residencial de alta seguridad...", 'bot');
+              setTimeout(() => {
+                appendMsg(`<strong>Resumen del Requerimiento Técnico:</strong><br>• <strong>Paciente:</strong> ${temp.name}<br>• <strong>Servicio:</strong> ${temp.service}<br>• <strong>Notas:</strong> ${temp.desc}`, 'bot');
+                setTimeout(() => {
+                  appendMsg("Los datos han sido pre-guardados encriptadamente. Para dar inicio al protocolo operativo, haga clic en el botón inferior para realizar la <strong>Verificación vía WhatsApp</strong>.", 'bot');
+
+                  const optionsDiv = document.createElement('div');
+                  optionsDiv.className = 'chatbot-options';
+                  const wsText = encodeURIComponent(`*SOLICITUD ASISTENCIA VIRTUAL*\n\n*Paciente:* ${temp.name}\n*Especialidad:* ${temp.service}\n*Requerimiento:* ${temp.desc}`);
+                  optionsDiv.innerHTML = `
+                    <button class="chat-opt-btn" onclick="verifyAndReset('${wsText}')">
+                      <i class="fa-brands fa-whatsapp"></i> Verificar en WhatsApp
+                    </button>
+                  `;
+                  body.appendChild(optionsDiv);
+                  body.scrollTop = body.scrollHeight;
+                  state = 4;
+                }, 600);
+              }, 700);
+              break;
+            case 4:
+              appendMsg("Por favor, use el botón superior para completar la verificación técnica.", 'bot');
+              break;
+          }
+        }, 700);
+      }
+
+      window.verifyAndReset = function(encodedText) {
+        window.open(`https://wa.me/593995441552?text=${encodedText}`, '_blank');
+        setTimeout(() => {
+          appendMsg("<em>Verificación procesada. El asistente virtual se reiniciará en unos instantes...</em>", 'bot');
+          setTimeout(() => {
+            initChat();
+            showToast("Chatbot de soporte reiniciado");
+          }, 2000);
+        }, 1000);
+      };
+    })();
+
+    // ===== MÓDULOS LEGALES =====
+    (function() {
+      const modal = document.getElementById('legalModal');
+      const paneTitle = document.getElementById('legalPaneTitle');
+      const paneBody = document.getElementById('legalPaneBody');
+      const closeBtn = document.getElementById('btnCloseLegal');
+      if (!modal || !paneTitle || !paneBody) return;
+
+      const textos = {
+        'politicas-pane': {
+          title: 'Políticas de Privacidad Clínicas',
+          content: '<h3>1. Protección de Historiales Clínicos</h3><p>En Aquí Contigo, todos los datos médicos relativos a tratamientos, diagnósticos y signos vitales se someten a estrictos esquemas de cifrado simétrico AES-256. Ninguna persona ajena al equipo clínico acreditado tiene acceso a la información confidencial de salud residencial del paciente.</p><h3>2. Tratamiento de Datos Personales</h3><p>Los datos ingresados en esta plataforma digital se almacenan en estructuras aisladas y seguras. No se comercializan ni se comparten historiales biológicos con intermediarios, asegurando absoluta privacidad médica de alta gama.</p>'
+        },
+        'contratos-pane': {
+          title: 'Términos de Contrato y Cobertura',
+          content: '<h3>1. Marco Operativo de Prestación</h3><p>Los servicios detallados en esta plataforma constituyen un acuerdo de coordinación logística médica domiciliaria. El personal asignado cumple con un riguroso proceso de validación de credenciales académicas y antecedentes profesionales.</p><h3>2. Cancelaciones y Variaciones Técnicas</h3><p>Las solicitudes de ajuste en los turnos médicos de asistencia domiciliaria residencial premium deben notificarse con un intervalo mínimo de 24 horas a través de los canales exclusivos de teleasistencia.</p>'
+        }
+      };
+
+      function openPane(key) {
+        const data = textos[key];
+        if (!data) return;
+        paneTitle.innerText = data.title;
+        paneBody.innerHTML = data.content;
+        document.querySelectorAll('.legal-nav-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-target') === key);
+        });
+        modal.classList.add('active');
+      }
+
+      document.getElementById('linkLegalPrivacidad')?.addEventListener('click', (e) => { e.preventDefault(); openPane('politicas-pane'); });
+      document.getElementById('linkLegalTerminos')?.addEventListener('click', (e) => { e.preventDefault(); openPane('contratos-pane'); });
+      closeBtn?.addEventListener('click', () => modal.classList.remove('active'));
+
+      document.querySelectorAll('.legal-nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => openPane(btn.getAttribute('data-target')));
+      });
+    })();
+
+    // ===== COMPARTIR =====
+    document.getElementById('btnShareTrigger')?.addEventListener('click', async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: 'Aquí Contigo Premium', text: 'Cuidado Médico Residencial de Alta Gama.', url: window.location.href });
+        } catch (err) {}
+      } else {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          showToast("¡Enlace copiado al portapapeles!");
+        } catch (err) {
+          alert("Enlace: " + window.location.href);
+        }
+      }
+    });
+
+    // ===== INSTALACIÓN PWA =====
+    (function() {
+      let deferredPrompt;
+      const btnNav = document.getElementById('btnNavInstall');
+      const btnSection = document.getElementById('btnSectionInstall');
+      const wrapper = document.getElementById('wrapperSeccionInstalar');
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (btnNav) { btnNav.style.opacity = '1'; btnNav.style.pointerEvents = 'auto'; }
+      });
+
+      async function installApp() {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            showToast("¡Procesando adición al escritorio móvil!");
+          }
+          deferredPrompt = null;
+        } else {
+          showToast("Para instalar de forma nativa, use la opción de su navegador o 'Añadir a pantalla de inicio'");
+        }
+      }
+
+      btnNav?.addEventListener('click', installApp);
+      btnSection?.addEventListener('click', installApp);
+
+      window.addEventListener('appinstalled', () => {
+        showToast("¡Aquí Contigo se añadió con éxito al escritorio!");
+        if (btnNav) btnNav.style.display = 'none';
+        if (wrapper) wrapper.style.display = 'none';
+      });
+    })();
+
+    // ===== SEGURIDAD: PREVENIR INSPECCIÓN Y CONTEXTO =====
+    (function() {
+      document.addEventListener('contextmenu', function(e) { e.preventDefault(); }, false);
+      document.addEventListener('keydown', function(e) {
+        if (e.keyCode >= 112 && e.keyCode <= 123) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+        const esMeta = e.ctrlKey || e.metaKey;
+        const esShift = e.shiftKey;
+        if (
+          (esMeta && e.key.toLowerCase() === 'u') ||
+          (esMeta && esShift && e.key.toLowerCase() === 'i') ||
+          (esMeta && esShift && e.key.toLowerCase() === 'j') ||
+          (esMeta && esShift && e.key.toLowerCase() === 'c') ||
+          (esMeta && e.key.toLowerCase() === 's')
+        ) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+      }, false);
+      document.addEventListener('selectstart', function(e) { e.preventDefault(); }, false);
+    })();
+  </script>
+</body>
+</html>

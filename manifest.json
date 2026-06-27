@@ -1,0 +1,37 @@
+{
+  "name": "Aquí Contigo | Cuidado Domiciliario",
+  "short_name": "Aquí Contigo",
+  "description": "Atención Médica Residencial y Cuidado de Alta Gama",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#050807",
+  "theme_color": "#236F57",
+  "orientation": "portrait-primary",
+  "categories": ["medical", "health"],
+  "icons": [
+    {
+      "src": "aqui_contigo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "aqui_contigo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "aqui_contigo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "aqui_contigo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
