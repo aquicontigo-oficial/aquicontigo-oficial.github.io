@@ -397,7 +397,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    /* Estilo del indicador dinámico de Autoplay Activo */
     .autoplay-badge {
       font-size: 0.75rem;
       background: var(--primary-soft);
@@ -853,10 +852,48 @@
     .toast-notification { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(30px); background: rgba(11, 19, 16, 0.96); backdrop-filter: blur(10px); color: white; padding: 14px 28px; border-radius: 40px; font-size: 0.9rem; font-weight: 500; box-shadow: 0 20px 40px rgba(0,0,0,0.3); z-index: 4000; opacity: 0; pointer-events: none; transition: var(--transition-fluid); display: flex; align-items: center; gap: 10px; }
     .toast-notification.active { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
 
-    /* Footer Premium */
-    .premium-footer { background: var(--footer-bg); color: var(--footer-text-body); padding: 90px 0 40px 0; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.92rem; position: relative; }
-    .footer-grid { display: grid; grid-template-columns: 1.2fr 0.8fr 0.9fr 1.1fr; gap: 50px; margin-bottom: 70px; }
-    .footer-brand .footer-logo-img { height: 52px; width: auto; margin-bottom: 24px; object-fit: contain; }
+    /* ===== RE-DISEÑO EXCLUSIVO DEL FOOTER PREMIUM ===== */
+    .premium-footer { 
+      background: var(--footer-bg); 
+      color: var(--footer-text-body); 
+      padding: 90px 0 40px 0; 
+      border-top: 1px solid rgba(255, 255, 255, 0.05); 
+      font-size: 0.92rem; 
+      position: relative; 
+    }
+    .footer-grid { 
+      display: grid; 
+      grid-template-columns: 1.3fr 0.8fr 0.9fr 1fr; 
+      gap: 50px; 
+      margin-bottom: 70px; 
+    }
+    
+    /* Contenedor optimizado para mayor tamaño y visualización espectacular de la imagen */
+    .footer-brand .logo-footer-wrap {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px 28px;
+      border-radius: var(--radius-md);
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2), 0 0 15px 0 rgba(35, 111, 87, 0.1);
+      transition: var(--transition-fluid);
+    }
+    .footer-brand .logo-footer-wrap:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(0, 180, 216, 0.3);
+      box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4), 0 0 25px 0 rgba(123, 44, 191, 0.25);
+      transform: translateY(-2px);
+    }
+    .footer-brand .footer-logo-img { 
+      height: 75px; /* Aumentado sustancialmente para una visualización imponente */
+      width: auto; 
+      object-fit: contain; 
+      display: block;
+      filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.3));
+    }
+    
     .footer-brand p { line-height: 1.7; color: var(--footer-text-body); margin-bottom: 30px; }
     .footer-social-wrapper { display: flex; gap: 14px; align-items: center; }
     .footer-social-btn { width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); color: var(--footer-text-body); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; text-decoration: none; transition: var(--transition-fluid); }
@@ -911,7 +948,7 @@
   <div id="loading-screen">
     <div class="loading-wrapper">
       <div class="loading-logo-container">
-        <img src="aqui_contigo.png" alt="Aquí Contigo" class="loading-logo" onerror="this.src='https://images.unsplash.com/photo-1584515933487-75982136b247?auto=format&fit=crop&w=150&q=80'">
+        <img src="aqui_contigo_cell.png" alt="Aquí Contigo" class="loading-logo" onerror="this.src='https://images.unsplash.com/photo-1584515933487-75982136b247?auto=format&fit=crop&w=150&q=80'">
       </div>
       <div class="loading-bar-bg">
         <div class="loading-bar-fill" id="loadingBarFill"></div>
@@ -926,12 +963,13 @@
   <header class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="#" aria-label="Página de inicio">
-        <img src="aqui_contigo.png" alt="Aquí Contigo Logo" class="logo-img" onerror="this.src='https://images.unsplash.com/photo-1584515933487-75982136b247?auto=format&fit=crop&w=200&q=80'">
+        <img src="aqui_contigo_cell.png" alt="Aquí Contigo Logo" class="logo-img" onerror="this.src='https://images.unsplash.com/photo-1584515933487-75982136b247?auto=format&fit=crop&w=200&q=80'">
       </a>
       <nav class="nav-links" id="navLinks">
         <a href="#">Inicio</a>
         <a href="#nosotros">Nosotros</a>
         <a href="#servicios">Servicios</a>
+         <a href="#carrito">Carrito</a>
         <a href="#galeria">Galería</a>
         <a href="#testimonios">Testimonios</a>
         <a href="#asistencia">Contacto</a>
@@ -1002,7 +1040,7 @@
   <section class="container" id="nosotros" data-aos="fade-up">
     <div class="about-wrap">
       <h2>Especialistas en Devolverle la Tranquilidad y la Salud a su Familia</h2>
-      <p>Nos define la búsqueda incansable de la perfección operativa en el cuidado domiciliario. Coordinamos de manera integral profesionales altamente capacitados, tecnologías de telemetría médica avanzada y protocolos de control clínico rigurosos para asegurar la máxima estabilidad en su entorno privado.</p>
+      <p>Nos define la búsqueda incansable de la perfection operativa en el cuidado domiciliario. Coordinamos de manera integral profesionales altamente capacitados, tecnologías de telemetría médica avanzada y protocolos de control clínico rigurosos para asegurar la máxima estabilidad en su entorno privado.</p>
     </div>
   </section>
 
@@ -1019,7 +1057,7 @@
     </div>
   </section>
 
-  <section class="container" data-aos="fade-up">
+  <section class="container" data-aos="fade-up" id="carrito">
     <div class="carrito-informativo">
       <i class="fa-solid fa-cart-shopping"></i>
       <h2>Tu Carrito de Compras</h2>
@@ -1168,7 +1206,9 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand" data-aos="fade-up">
-          <img src="aqui_contigo.png" alt="Aquí Contigo Premium" class="footer-logo-img" onerror="this.src='https://images.unsplash.com/photo-1584515933487-75982136b247?auto=format&fit=crop&w=200&q=80'">
+          <div class="logo-footer-wrap">
+            <img src="aqui-contigo.png" alt="Aquí Contigo Premium" class="footer-logo-img" onerror="this.src='https://images.unsplash.com/photo-1584515933487-75982136b247?auto=format&fit=crop&w=300&q=80'">
+          </div>
           <p>Unimos la máxima distinción en hospitalidad ejecutiva con protocolos médicos de terapia intensiva domiciliaria para pacientes exigentes.</p>
           <div class="footer-social-wrapper">
             <a href="#" class="footer-social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -1275,18 +1315,18 @@
         if (icon) icon.className = audio.muted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high';
       }
 
-      // 1. Intento inmediato de Autoplay Nativo
+      // Intento inmediato de Autoplay Nativo
       let playPromise = audio.play();
       
       if (playPromise !== undefined) {
         playPromise.then(() => {
-          // Autoplay exitoso al cargar la página de inmediato
-          if (badge) badge.style.background = 'rgba(37, 211, 102, 0.15)';
-          if (badge) badge.style.color = '#25D366';
+          if (badge) {
+            badge.style.background = 'rgba(37, 211, 102, 0.15)';
+            badge.style.color = '#25D366';
+          }
           updatePlayIcon();
         }).catch(() => {
-          // Bloqueado por políticas del navegador: Esperando el primer toque del usuario
-          if (badge) badge.innerHTML = '<i class="fa-solid fa-circle"></i> Toque la pantalla para activar';
+          if (badge) badge.innerHTML = '<i class="fa-solid fa-circle"></i> Interactúa para activar música';
           
           const startAudioOnInteraction = () => {
             audio.play().then(() => {
@@ -1298,7 +1338,6 @@
               updatePlayIcon();
             }).catch(e => console.log("Interacción prevenida:", e));
             
-            // Remover listeners inmediatamente para conservar rendimiento de memoria
             document.removeEventListener('click', startAudioOnInteraction);
             document.removeEventListener('touchstart', startAudioOnInteraction);
             document.removeEventListener('scroll', startAudioOnInteraction);
@@ -1311,7 +1350,7 @@
       }
 
       playBtn.addEventListener('click', function(e) {
-        e.stopPropagation(); // Evitar triggers cruzados
+        e.stopPropagation();
         if (audio.paused) {
           audio.play().then(updatePlayIcon);
         } else {
@@ -1486,7 +1525,7 @@
       this.reset();
     });
 
-    // ===== SISTEMA CHATBOT PASO A PASO =====
+    // ===== SISTEMA CHATBOT INTERACTIVO =====
     (function() {
       const launcher = document.getElementById('chatbotLauncher');
       const windowChat = document.getElementById('chatbotWindow');
